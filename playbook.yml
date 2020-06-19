@@ -13,15 +13,15 @@
         return_content: yes
     - name: Backup OS
       shell: rear -d -v mkbackup
-   - include: backupos.yml
+    - include: backupos.yml
     - name: update CVE
       shell: yum update --cve CVE-2019-3820 -y
       register: output
-   - name: verify cve
+    - name: verify cve
       debug:
         msg: "Not Patch"
       when: "'Resolving Dependencies' in output.stdout"
     - name: Reboot a slow machine that might have lots of updates to apply
       reboot:
-        reboot_timeout: 60
+        reboot_timeout: 600
         test_command: whoami
